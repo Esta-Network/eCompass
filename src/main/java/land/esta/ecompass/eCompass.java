@@ -14,13 +14,14 @@ public class eCompass extends JavaPlugin implements Listener {
 
     public void onEnable() {
         instance = this;
+        Bukkit.getServer().getConsoleSender().sendMessage("§a[eCompass] Registering Listeners...");
         new CompassListener(this);
         getServer().getPluginManager().registerEvents(this, this);
-        Bukkit.getLogger().info("§aeCompass has successfully enabled.");
+        Bukkit.getServer().getConsoleSender().sendMessage("§aeCompass has successfully registered listeners & loaded.");
     }
 
     public void onDisable () {
-        Bukkit.getLogger().info("§aeCompass has successfully disabled");
+        Bukkit.getServer().getConsoleSender().sendMessage(("§aeCompass has successfully unloaded & disabled.");
     }
 
     public static eCompass getInstance() {

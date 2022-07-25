@@ -21,7 +21,7 @@ public class eCompass extends JavaPlugin implements Listener {
     }
 
     public void onDisable () {
-        Bukkit.getServer().getConsoleSender().sendMessage(("§aeCompass has successfully unloaded & disabled.");
+        Bukkit.getServer().getConsoleSender().sendMessage("§aeCompass has successfully unloaded & disabled.");
     }
 
     public static eCompass getInstance() {

@@ -1,0 +1,8 @@
+main: land.esta.ecompass.eCompass
+name: eCompass
+description: An ePractice Compass Tracker Addon
+version: 1.0-SNAPSHOT
+authors:
+  - tdvne
+website: https://esta.land
+softdepend: [ ePractice ]

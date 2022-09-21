@@ -2,27 +2,27 @@ package land.esta.ecompass.listener;
 
 import land.esta.ecompass.eCompass;
 import land.esta.ecompass.util.CC;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.EventHandler;
-import java.util.Map;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.entity.Player;
-import java.util.HashMap;
-import org.bukkit.event.Listener;
 
-public class CompassListener implements Listener
-{
-    private eCompass plugin;
-    private HashMap<Player, Player> compassTargets;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CompassListener implements Listener {
+    private final eCompass plugin;
+    private final HashMap<Player, Player> compassTargets;
 
     public CompassListener(final eCompass instance) {
         this.plugin = instance;
-        this.plugin.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)this.plugin);
+        this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
         this.compassTargets = new HashMap<Player, Player>();
     }
 
@@ -45,7 +45,7 @@ public class CompassListener implements Listener
     public void onPlayerInteract(final PlayerInteractEvent e) {
         final Player tracker = e.getPlayer();
         Player targetPlayer = null;
-        if ((e.getAction().equals((Object)Action.RIGHT_CLICK_AIR) || e.getAction().equals((Object)Action.RIGHT_CLICK_BLOCK)) && tracker.getItemInHand().getType().equals((Object)Material.COMPASS)) {
+        if ((e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) && tracker.getItemInHand().getType().equals(Material.COMPASS)) {
             if (!tracker.hasPermission("ecompass.use")) {
                 return;
             }
@@ -68,15 +68,13 @@ public class CompassListener implements Listener
             }
             tracker.sendMessage(CC.translate("&aYou are now tracking &e" + targetPlayer.getName() + "&a."));
             this.compassTargets.put(tracker, targetPlayer);
-        }
-        else if ((e.getAction().equals((Object)Action.LEFT_CLICK_AIR) || e.getAction().equals((Object)Action.LEFT_CLICK_BLOCK)) && tracker.getItemInHand().getType().equals((Object)Material.COMPASS)) {
+        } else if ((e.getAction().equals(Action.LEFT_CLICK_AIR) || e.getAction().equals(Action.LEFT_CLICK_BLOCK)) && tracker.getItemInHand().getType().equals(Material.COMPASS)) {
             if (!tracker.hasPermission("ecompass.use")) {
                 return;
             }
             if (this.compassTargets.get(tracker) != null) {
                 tracker.sendMessage(CC.translate("&e" + this.compassTargets.get(tracker).getName() + "&a is &e" + tracker.getLocation().distance(this.compassTargets.get(tracker).getLocation()) + " &ablocks away."));
-            }
-            else {
+            } else {
                 tracker.sendMessage(CC.translate("&cYou aren't tracking anyone."));
             }
         }
@@ -99,8 +97,7 @@ public class CompassListener implements Listener
                         this.compassTargets.remove(tracker);
                     }
                     tracker.setCompassTarget(e.getPlayer().getLocation());
-                }
-                else {
+                } else {
                     tracker.sendMessage(CC.translate("&cYour target has either died or disconnected, you are no longer tracking anyone."));
                     this.compassTargets.remove(tracker);
                 }

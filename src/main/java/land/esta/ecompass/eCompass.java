@@ -9,8 +9,12 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class eCompass extends JavaPlugin implements Listener {
-    eCompass plugin = this;
     private static eCompass instance;
+    eCompass plugin = this;
+
+    public static eCompass getInstance() {
+        return instance;
+    }
 
     public void onEnable() {
         instance = this;
@@ -20,12 +24,8 @@ public class eCompass extends JavaPlugin implements Listener {
         Bukkit.getServer().getConsoleSender().sendMessage("§aeCompass has successfully registered listeners & loaded.");
     }
 
-    public void onDisable () {
+    public void onDisable() {
         Bukkit.getServer().getConsoleSender().sendMessage("§aeCompass has successfully unloaded & disabled.");
-    }
-
-    public static eCompass getInstance() {
-        return instance;
     }
 
     // GPL v3 Public License
